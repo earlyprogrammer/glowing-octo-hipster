@@ -29,6 +29,9 @@ ruleset see_songs {
 				m = event:attr("song");
 			}
 	
+		send_directive("song sung") with
+			song = m
+	
 		fired {
 			raise explicit event found_hymn
 		}
