@@ -30,7 +30,7 @@ ruleset see_songs {
 			}
 	
 		fired {
-			raise explicit event found_hymn if (m.match(re/god/))
+			raise explicit event found_hymn
 		}
 	}
 }
