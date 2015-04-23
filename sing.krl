@@ -8,7 +8,7 @@ ruleset see_songs {
 		logging on
 	}
 	
-	rule songs is active {
+	rule songs {
 		select when echo message
 								input "(.*)"
 								msg_type "song"
@@ -33,7 +33,9 @@ ruleset see_songs {
 			song = m
 	
 		fired {
-			raise explicit event found_hymn if m.match(re/god/)
+			raise explicit event found_hymn with
+					song = m
+				if m.match(re/god/)
 		}
 	}
 	
