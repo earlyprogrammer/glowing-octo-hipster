@@ -31,12 +31,14 @@ ruleset song_store {
 		
 		pre {
 			m = event:attr("song");
+			a = (ent:songs) => ent:songs | {};
+			a = a.put(time:new(), m);
 		}
 		
 		{ noop(); }
 		
 		fired {
-			set ent:songs ent:songs.put(time:new(), m);
+			set ent:songs a;
 		}
 	}
 
@@ -45,12 +47,14 @@ ruleset song_store {
 		
 		pre {
 			m = event:attr("song");
+			a = (ent:hymns) => ent:hymns | {};
+			a = a.put(time:new(), m);
 		}
 		
 		{ noop(); }
 		
 		fired {
-			set ent:hymns ent:hymns.put(time:new(), m);
+			set ent:hymns a;
 		}
 	}
 
