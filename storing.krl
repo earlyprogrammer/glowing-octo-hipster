@@ -36,7 +36,7 @@ ruleset song_store {
 		{ noop(); }
 		
 		fired {
-			set ent:songs ent:songs.put(time:new(), m);
+			set ent:songs (ent:songs) => ent:songs.put(time:new(), m) | { time:new() : m };
 		}
 	}
 
@@ -50,7 +50,7 @@ ruleset song_store {
 		{ noop(); }
 		
 		fired {
-			set ent:hymns ent:hymns.put(time:new(), m);
+			set ent:hymns (ent:hymns) => ent:hymns.put(time:new(), m) | { time:new() : m };
 		}
 	}
 
