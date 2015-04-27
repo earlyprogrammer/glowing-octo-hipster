@@ -60,8 +60,8 @@ ruleset song_store {
 		{ noop(); }
 		
 		fired {
-			set ent:songs {};
-			set ent:hymns {};
+			clear ent:songs;
+			clear ent:hymns;
 		}
 	}
 
