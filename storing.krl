@@ -32,7 +32,7 @@ ruleset song_store {
 		pre {
 			m = event:attr("song");
 			a = (ent:songs) => ent:songs | {};
-			a = a.put(time:new(), m);
+			a = a.put([time:new()], m);
 		}
 		
 		{ noop(); }
@@ -48,7 +48,7 @@ ruleset song_store {
 		pre {
 			m = event:attr("song");
 			a = (ent:hymns) => ent:hymns | {};
-			a = a.put(time:new(), m);
+			a = a.put([time:new()], m);
 		}
 		
 		{ noop(); }
