@@ -10,6 +10,9 @@ ruleset picos {
 		sharing on
 	}
 	
+	global {
+	
+	}
 
 
 	rule createChild {
