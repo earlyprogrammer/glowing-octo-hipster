@@ -25,7 +25,7 @@ ruleset picos {
 		}
 		
 		{
-			send_directive("answer") with body = a(2);
+			send_directive("answer") with body = a(3);
 		}
 	}
 	
