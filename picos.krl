@@ -1,6 +1,6 @@
 ruleset picos {
 	meta {
-		name "pico management"
+		name "pico testing"
 		description <<
 			managing and navigating picos
 		>>
@@ -14,163 +14,24 @@ ruleset picos {
 
 	global {
 	
-		children = function() {
-			ent:children;
-		}
-	
-		parent = function() {
-			ent:parent;
-		}
-	
-		attributes = function() {
-			ent:attributes.put( {'PicoName' : ent:name} );
+		newPico = function(eci) {
+			pci:new_cloud(eci);
 		}
 		
-	}
-	
-	/*
-	Notes:
-	How to set primary name on creation?  Add to bootstrap?
-	*/
-	
-	
-	
-	rule createChild {
-		select when nano_manager new_cloud
-		
-		pre {
-			childName = event:attr("name");
-			childAttrs = event:attr("attributes"); //string representation of a hash, will be decoded in child
-			
-			myName = ent:name;
-			myEci = meta:eci();
-			myInfo = {"#{myName}" : myEci}.encode();
-			
-			newPico = pci:new_cloud(myEci);
-			
-			myChildren = ent:children.put({"#{childName}" : newPico});
+		deletePico = function(eci, cascade) {
+			pci:delete_cloud(eci, {"cascade" : cascade});
 		}
 		
-		{
-			pci:new_ruleset(newPico, "b507199x5"); //install nano_manager on the new pico
-			
-			event:send({"cid":newPico}, "nano_manager", "newly_created")
-				with attrs = {"parent": myInfo,
-								"name": childName,
-								"attributes": childAttrs
-							};
+		listChildren = function(eci) {
+			pci:list_children(eci);
 		}
 		
-		fired {
-			set ent:children myChildren;
-		}
-	}
-	
-	rule initializeChild {
-		select when nano_manager newly_created
-		
-		pre {
-			parentInfo = event:attr("parent").decode();
-			name = event:attr("name");
-			attrs = event:attr("attributes").decode();
+		listParent = function(eci) {
+			pci:list_parent(eci);
 		}
 		
-		{
-			noop();
-		}
-		
-		fired {
-			set ent:parent parentInfo;
-			set ent:children {};
-			set ent:name name;
-			set ent:attributes attrs;
-		}
-	}
-
-
-	rule setPicoAttributes {
-		select when nano_manager pico_attributes_set
-		
-		pre {
-			newAttrs = event:attr("attributes");
-		}
-		
-		{
-			noop();
-		}
-		
-		fired {
-			set ent:attributes newAttrs;
-		}
-	}
-	
-	rule clearPicoAttributes {
-		select when nano_manager pico_attributes_cleared
-		
-		pre {
-		}
-		
-		{
-			noop();
-		}
-		
-		fired {
-			clear ent:attributes;
-		}
-	}
-	
-	
-	
-	rule deleteChildren {
-		select when nano_manager pico_deleted
-			or nano_manager pico_parent_deleted
-			foreach ent:children setting (name, eci)
-
-		pre {
-			picoDeleted = ent:name;
-		}
-		
-		{
-			event:send({"cid":eci}, "nano_manager", "pico_parent_deleted")
-				with attrs = {"name": picoDeleted}
-		}
-	}
-	
-	rule delete {
-		select when nano_manager pico_deleted
-			or nano_manager pico_parent_deleted
-		
-		pre {
-			picoDeleted = ent:name;
-			eciDeleted = meta:eci();
-			
-			parentEci = ent:parent.values();
-		}
-	
-		{
-			pci:delete_cloud(eciDeleted);
-			
-			event:send({"cid":parentEci}, "nano_manager", "pico_child_deleted")
-				with attrs = {"name": picoDeleted}
-		}
-		
-	}
-	
-	rule removeChild {
-		select when nano_manager pico_child_deleted
-	
-		pre {
-			childToRemove = event:attr("name");
-			
-			newChildren = ent:children.delete(childToRemove);
-		}
-		
-		{
-			noop();
-		}
-		
-		fired {
-			set ent:children newChildren;
+		setParent = function(child, newParent) {
+			pci:set_parent(child, newParent);
 		}
 	}
 
