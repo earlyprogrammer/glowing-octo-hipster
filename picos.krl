@@ -23,7 +23,7 @@ ruleset picos {
 		}
 		
 		listChildren = function(eci) {
-			"elmo";
+			{'status' : "elmo"};
 			//pci:list_children(eci);
 		}
 		
