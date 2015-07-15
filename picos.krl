@@ -8,7 +8,7 @@ ruleset picos {
 		logging off
 		
 		sharing on
-		provides children, parent, attributes
+		provides newPico, deletePico, listChildren, listParent, setParent
 	}
 	
 
