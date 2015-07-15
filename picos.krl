@@ -15,7 +15,11 @@ ruleset picos {
 	global {
 	
 		newPico = function(eci) {
-			pci:new_cloud(eci);
+			newEci = pci:new_cloud(eci);
+			{ 
+				'status' : "good",
+				'newEci' : "newEci"
+			}
 		}
 		
 		deletePico = function(eci, cascade) {
