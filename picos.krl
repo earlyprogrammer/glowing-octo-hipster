@@ -18,7 +18,7 @@ ruleset picos {
 			newEci = pci:new_cloud(eci);
 			{ 
 				'status' : "good",
-				'newEci' : "newEci"
+				'newEci' : newEci
 			}
 		}
 		
