@@ -15,7 +15,7 @@ ruleset picos {
 	global {
 	
 		newPico = function(eci) {
-			newEci = pci:new_cloud(eci);
+			newEci = pci:new_pico(eci);
 			{ 
 				'status' : "good",
 				'newEci' : newEci
