@@ -17,7 +17,6 @@ ruleset picos {
 		newPico = function(eci) {
 			newEci = pci:new_pico(eci);
 			{ 
-				'status' : "good",
 				'newEci' : newEci
 			}
 		}
@@ -27,16 +26,24 @@ ruleset picos {
 		}
 		
 		listChildren = function(eci) {
-			//{'status' : "elmo"};
-			pci:list_children(eci);
+			children = pci:list_children(eci);
+			{
+				'children' : children
+			}
 		}
 		
 		listParent = function(eci) {
-			pci:list_parent(eci);
+			parent = pci:list_parent(eci);
+			{
+				'parent' : parent
+			}
 		}
 		
 		setParent = function(child, newParent) {
-			pci:set_parent(child, newParent);
+			target = pci:set_parent(child, newParent);
+			{
+				'newParent' : target
+			}
 		}
 	}
 
