@@ -7,6 +7,8 @@ ruleset picos {
 		author "Michael Angell"
 		logging off
 		
+		use module b16x24 alias system_credentials
+		
 		sharing on
 		provides newChild, deletePico, listChildren, listParent, setParent
 	}
