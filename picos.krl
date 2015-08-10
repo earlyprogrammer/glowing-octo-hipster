@@ -8,38 +8,46 @@ ruleset picos {
 		logging off
 		
 		sharing on
-		provides newPico, deletePico, listChildren, listParent, setParent
+		provides newCloud, deletePico, listChildren, listParent, setParent
 	}
 	
 
 	global {
-	
-		newPico = function(eci) {
-			newEci = pci:new_pico(eci);
-			{ 
-				'newEci' : newEci
+		
+		newCloud = function() {
+			eci = meta:eci();
+			newPico = pci:new_cloud(eci);
+			newEci = newPico['cid'];
+			
+			rsi = pci:new_ruleset(meta:rid());
+			{
+				'childEci' : newEci
 			}
 		}
 		
-		deletePico = function(eci, cascade) {
+		deletePico = function(cascade) {
+			eci = meta:eci();
 			pci:delete_cloud(eci, {"cascade" : cascade});
 		}
 		
-		listChildren = function(eci) {
+		listChildren = function() {
+			eci = meta:eci();
 			children = pci:list_children(eci);
 			{
 				'children' : children
 			}
 		}
 		
-		listParent = function(eci) {
+		listParent = function() {
+			eci = meta:eci();
 			parent = pci:list_parent(eci);
 			{
 				'parent' : parent
 			}
 		}
 		
-		setParent = function(child, newParent) {
+		setParent = function(newParent) {
+			child = meta:eci();
 			target = pci:set_parent(child, newParent);
 			{
 				'newParent' : target
