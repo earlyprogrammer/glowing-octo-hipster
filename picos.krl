@@ -8,13 +8,13 @@ ruleset picos {
 		logging off
 		
 		sharing on
-		provides newCloud, deletePico, listChildren, listParent, setParent
+		provides newChild, deletePico, listChildren, listParent, setParent
 	}
 	
 
 	global {
 		
-		newCloud = function() {
+		newChild = function() {
 			eci = meta:eci();
 			newPico = pci:new_cloud(eci);
 			newEci = newPico['cid'];
