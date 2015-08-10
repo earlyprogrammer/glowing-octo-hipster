@@ -19,7 +19,7 @@ ruleset picos {
 			newPico = pci:new_cloud(eci);
 			newEci = newPico{'cid'};
 			
-			rsi = pci:new_ruleset(meta:rid());
+			rsi = pci:new_ruleset(newEci, meta:rid());
 			{
 				'childEci' : newEci
 			}
