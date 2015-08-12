@@ -1,8 +1,8 @@
 ruleset picos {
 	meta {
-		name "pico management"
+		name "testing file for anything"
 		description <<
-			managing and navigating picos
+			I will do awesome things with this ruleset
 		>>
 		author "Michael Angell"
 		logging off
@@ -12,22 +12,23 @@ ruleset picos {
 	
 	global {
 	
-	}
-
-
-	rule createChild {
-		select when purple elephant
-		
-		pre {
-			a = function(r) {
-				r+1;
-			}
+		justEmptyArray = function(){
+			a = [];
+			a;
+		}
+	
+		emptyArrayDefaults = function(){
+			a = [];
+			b = a.defaultsTo(["defaults triggered on empty array"]);
+			b;
 		}
 		
-		{
-			send_directive("answer") with body = a(3);
+		justDefaults = function(){
+			a = x.defaultsTo(["defaults triggered on undefined"]);
+			a;
 		}
 	}
+
 	
 
 }
