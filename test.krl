@@ -5,6 +5,10 @@ ruleset picos {
 			I will do awesome things with this ruleset
 		>>
 		author "Michael Angell"
+		
+		provides justEmptyArray, emptyArrayDefaults, justDefaults
+		
+		
 		logging off
 		
 		sharing on
