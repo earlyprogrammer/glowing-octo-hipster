@@ -9,7 +9,7 @@ ruleset picos {
 		provides justEmptyArray, emptyArrayDefaults, justDefaults
 		
 		
-		logging off
+		logging on
 		
 		sharing on
 	}
@@ -33,6 +33,17 @@ ruleset picos {
 		}
 	}
 
-	
+	rule simpleEndpoint {
+		select when buttonPushTester pushed
+		pre {
+			something = event:attr("attr");
+		}
+		{
+			noop();
+		}
+		always {
+			log ("button pressed, received attribute #{something}");
+		}
+	}
 
 }
