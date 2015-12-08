@@ -13,11 +13,15 @@ ruleset DashButton {
   
 	global {
 		unregisteredClicks = function() {
-			ent:unregistered;
+			{
+				"unexpected buttons" : ent:unregistered
+			};
 		}
 		
 		registrations = function() {
-			ent:registered;
+			{
+				"registered buttons" : ent:registered
+			};
 		}
 	}
 	
