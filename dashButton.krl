@@ -42,6 +42,7 @@ ruleset DashButton {
 		fired {
 			clear ent:unregistered{mac};
 			set ent:registered{mac} newRegistration;
+			log ("registration happened, #{ent:registered{mac}}")
 		}
 	}
   
