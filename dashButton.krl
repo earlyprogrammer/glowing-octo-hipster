@@ -44,9 +44,9 @@ ruleset DashButton {
 			send_directive("attempted registration") with body = "hope it worked";
 		}
 		fired {
-			clear ent:unregistered{mac};
-			set ent:registered{mac} newRegistration;
-			log ("registration happened, #{ent:registered{mac}}");
+			//clear ent:unregistered{mac};
+			//set ent:registered{mac} newRegistration;
+			log ("registration happened, maybe something happened?");
 		}
 	}
   
