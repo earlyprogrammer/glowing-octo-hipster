@@ -28,10 +28,10 @@ ruleset DashButton {
 	rule registerButton {
 		select when dash_button registration
 		pre {
-			mac = event:attr("mac").defaultsTo("", "no mac address passed for registration");
-			target = event:attr("target").defaultsTo("", "no target for registration");
-			domain = event:attr("domain").defaultsTo("", "no domain for registration");
-			event_type = event:attr("event_type").defaultsTo("", "no type for registration");
+			mac = event:attr("mac").defaultsTo("", "no mac address passed for registration").klog("mac made");
+			target = event:attr("target").defaultsTo("", "no target for registration").klog("target made");
+			domain = event:attr("domain").defaultsTo("", "no domain for registration").klog("domain made");
+			event_type = event:attr("event_type").defaultsTo("", "no type for registration").klog("type made");
 			
 			newRegistration = {
 				"target" : target,
