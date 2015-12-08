@@ -27,15 +27,15 @@ ruleset DashButton {
 			mac = event:attr("mac").defaultsTo("", "no mac address passed for registration");
 			target = event:attr("target").defaultsTo("", "no target for registration");
 			domain = event:attr("domain").defaultsTo("", "no domain for registration");
-			type = event:attr("type").defaultsTo("", "no type for registration");
+			event_type = event:attr("event_type").defaultsTo("", "no type for registration");
 			
 			newRegistration = {
 				"target" : target,
 				"domain" : domain,
-				"type" : type
+				"type" : event_type
 			}
 		}
-		if (not (mac=="" || target=="" || domain=="" || type=="")) then
+		if (not (mac eq "" || target eq "" || domain eq "" || event_type eq "")) then
 		{
 			noop();
 		}
@@ -50,13 +50,20 @@ ruleset DashButton {
 		pre {
 			mac = event:attr("mac").defaultsTo("", "no mac address passed");
 			
-			
+			target = ent:registered{[mac, "target"]};
+			domain = ent:registered{[mac, "domain"]};
+			type = ent:registered{[mac, "type"]};
 		}
-		{
-			noop();
+		
+		if (mac neq "" && ent:registered >< mac) then {
+			event:send({"cid":target}, domain, type)
+				with attrs = {"mac": map}
 		}
-    	always{
-			log ("button pressed on #{mac}");
-    	}
+		
+    	fired {
+			log ("registered button pressed on #{mac}");
+    	} else {
+			log ("unregistered button pressed on #{mac}");
+		}
 	}
 }
