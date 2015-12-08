@@ -37,7 +37,7 @@ ruleset DashButton {
 		}
 		if (not (mac eq "" || target eq "" || domain eq "" || event_type eq "")) then
 		{
-			noop();
+			send_directive("attempted registration") with body = newRegistration;
 		}
 		fired {
 			clear ent:unregistered{mac};
