@@ -33,11 +33,11 @@ ruleset DashButton {
 			domain = event:attr("domain").defaultsTo("", "no domain for registration").klog("domain made");
 			event_type = event:attr("event_type").defaultsTo("", "no type for registration").klog("type made");
 			
-			newRegistration = {
-				"target" : target,
-				"domain" : domain,
-				"type" : event_type
-			}
+			//newRegistration = {
+			//	"target" : target,
+			//	"domain" : domain,
+			//	"type" : event_type
+			//}
 		}
 		if (not (mac eq "" || target eq "" || domain eq "" || event_type eq "")) then
 		{
