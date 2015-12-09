@@ -69,6 +69,7 @@ ruleset DashButton {
 			log ("registered button pressed on #{mac}");
     	} else {
 			log ("unregistered button pressed on #{mac}");
+			set ent:unregistered{mac} time:now();
 		}
 	}
 }
