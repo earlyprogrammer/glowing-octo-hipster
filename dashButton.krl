@@ -62,7 +62,7 @@ ruleset DashButton {
 		
 		if (mac neq "" && ent:registered >< mac) then {
 			event:send({"cid":target}, event_domain, event_type)
-				with attrs = {"mac": map}
+				with attrs = {"mac": mac}
 		}
 		
     	fired {
