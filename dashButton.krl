@@ -28,25 +28,25 @@ ruleset DashButton {
 	rule registerButton {
 		select when dash_button registration
 		pre {
-			mac = event:attr("mac").defaultsTo("", "no mac address passed for registration").klog("mac made");
-			target = event:attr("target").defaultsTo("", "no target for registration").klog("target made");
-			domain = event:attr("domain").defaultsTo("", "no domain for registration").klog("domain made");
-			event_type = event:attr("event_type").defaultsTo("", "no type for registration").klog("type made");
+			mac = event:attr("mac").defaultsTo("", "no mac address passed for registration");
+			target = event:attr("target").defaultsTo("", "no target for registration");
+			domain = event:attr("domain").defaultsTo("", "no domain for registration");
+			event_type = event:attr("event_type").defaultsTo("", "no type for registration");
 			
-			//newRegistration = {
-			//	"target" : target,
-			//	"domain" : domain,
-			//	"type" : event_type
-			//}
+			newRegistration = {
+				"target" : target,
+				"domain" : domain,
+				"event_type" : event_type
+			}
 		}
 		if (not (mac eq "" || target eq "" || domain eq "" || event_type eq "")) then
 		{
-			send_directive("attempted registration") with body = "hope it worked";
+			noop();
 		}
 		fired {
-			//clear ent:unregistered{mac};
-			//set ent:registered{mac} newRegistration;
-			log ("registration happened, maybe something happened?");
+			clear ent:unregistered{mac};
+			set ent:registered{mac} newRegistration;
+			log ("registered relay for #{mac}");
 		}
 	}
   
@@ -57,11 +57,11 @@ ruleset DashButton {
 			
 			target = ent:registered{[mac, "target"]};
 			domain = ent:registered{[mac, "domain"]};
-			type = ent:registered{[mac, "type"]};
+			event_type = ent:registered{[mac, "event_type"]};
 		}
 		
 		if (mac neq "" && ent:registered >< mac) then {
-			event:send({"cid":target}, domain, type)
+			event:send({"cid":target}, domain, event_type)
 				with attrs = {"mac": map}
 		}
 		
