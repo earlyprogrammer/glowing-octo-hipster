@@ -53,16 +53,18 @@ ruleset DashButton {
 	rule handleButtonPress {
 		select when dash_button button_pressed
 		pre {
-			mac = event:attr("mac").defaultsTo("", "no mac address passed");
+			mac = event:attr("mac").defaultsTo("", "no mac address passed").klog();
 			
 			target = ent:registered{[mac, "target"]}.klog();
 			event_domain = ent:registered{[mac, "event_domain"]}.klog();
 			event_type = ent:registered{[mac, "event_type"]}.klog();
+			
+			target_map = {"cid" : target}.klog();
 		}
 		
 		if (mac neq "" && ent:registered >< mac) then {
-			event:send({"cid":target}, event_domain, event_type)
-				with attrs = {"mac": mac}
+			event:send(target_map, event_domain, event_type) with
+				attrs = {"mac": mac};
 		}
 		
     	fired {
