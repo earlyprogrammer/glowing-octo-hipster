@@ -55,9 +55,9 @@ ruleset DashButton {
 		pre {
 			mac = event:attr("mac").defaultsTo("", "no mac address passed");
 			
-			target = ent:registered{[mac, "target"]};
-			event_domain = ent:registered{[mac, "event_domain"]};
-			event_type = ent:registered{[mac, "event_type"]};
+			target = ent:registered{[mac, "target"]}.klog();
+			event_domain = ent:registered{[mac, "event_domain"]}.klog();
+			event_type = ent:registered{[mac, "event_type"]}.klog();
 		}
 		
 		if (mac neq "" && ent:registered >< mac) then {
