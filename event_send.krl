@@ -13,7 +13,7 @@ ruleset some_events {
 	rule first {
 		select when chains first
 		
-		event:send({"eci": "DBF1FF2A-A05D-11E5-9734-DFAEE71C24E1"}, "chains", "second") with
+		event:send({"cid": "DBF1FF2A-A05D-11E5-9734-DFAEE71C24E1"}, "chains", "second") with
 			attrs = {"something": "awesome"};
 		
 		fired {
