@@ -63,8 +63,8 @@ ruleset DashButton {
 		}
 		
 		if (mac neq "" && ent:registered >< mac) then {
-			event:send(target_map, event_domain, event_type) //with
-				//attrs = {"mac": mac};
+			event:send(target_map, event_domain, event_type) with
+				attrs = {"mac": mac};
 		}
 		
     	fired {
